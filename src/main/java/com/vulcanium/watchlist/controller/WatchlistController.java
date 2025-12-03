@@ -4,6 +4,7 @@ import com.vulcanium.watchlist.exception.DuplicateTitleException;
 import com.vulcanium.watchlist.model.WatchlistItem;
 import com.vulcanium.watchlist.service.WatchlistService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,15 +13,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
+@RequiredArgsConstructor
 public class WatchlistController {
+
     private static final String WATCHLIST_ITEM_FORM_VIEW_NAME = "watchlistItemForm";
     private static final String WATCHLIST_VIEW_NAME = "watchlist";
 
-    WatchlistService watchlistService;
-
-    public WatchlistController() {
-        watchlistService = new WatchlistService();
-    }
+    private final WatchlistService watchlistService;
 
     @GetMapping("/watchlistItemForm")
     public String showWatchlistItemForm(@RequestParam(required = false) Integer id, Model model) {

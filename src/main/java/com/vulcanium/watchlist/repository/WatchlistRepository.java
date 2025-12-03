@@ -1,11 +1,13 @@
 package com.vulcanium.watchlist.repository;
 
 import com.vulcanium.watchlist.model.WatchlistItem;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Service
 public class WatchlistRepository {
 
     private final List<WatchlistItem> watchlistItems = new ArrayList<>();

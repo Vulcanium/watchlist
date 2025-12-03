@@ -3,19 +3,30 @@ package com.vulcanium.watchlist.service;
 import com.vulcanium.watchlist.exception.DuplicateTitleException;
 import com.vulcanium.watchlist.model.WatchlistItem;
 import com.vulcanium.watchlist.repository.WatchlistRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
+@RequiredArgsConstructor
 public class WatchlistService {
 
-    WatchlistRepository watchlistRepository;
-
-    public WatchlistService() {
-        watchlistRepository = new WatchlistRepository();
-    }
+    private final WatchlistRepository watchlistRepository;
+    private final MovieRatingService movieRatingService;
 
     public List<WatchlistItem> getWatchlistItems() {
-        return watchlistRepository.getList();
+        List<WatchlistItem> watchlistItems = watchlistRepository.getList();
+
+        for (WatchlistItem watchlistItem : watchlistItems) {
+            String rating = movieRatingService.getMovieRating(watchlistItem.getTitle());
+
+            if (rating != null) {
+                watchlistItem.setRating(rating);
+            }
+        }
+
+        return watchlistItems;
     }
 
     public int getWatchlistItemsSize() {
