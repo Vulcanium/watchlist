@@ -2,12 +2,14 @@ package com.vulcanium.watchlist.service;
 
 import com.vulcanium.watchlist.configuration.OMDbApiProperties;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import tools.jackson.databind.node.ObjectNode;
 
+@Slf4j
 @ConditionalOnProperty(name = "app.environment", havingValue = "prod")
 @Service
 @RequiredArgsConstructor
@@ -24,15 +26,19 @@ public class MovieRatingServiceImpl implements MovieRatingService {
 
         try {
             // HTTP GET request on the OMDb API
+            log.info("OMDb API called with URL: {}", searchMovieTitleUrl);
+
             RestTemplate restTemplate = new RestTemplate();
             ResponseEntity<ObjectNode> response = restTemplate.getForEntity(searchMovieTitleUrl, ObjectNode.class);
 
             // Extract and return the rating from the response returned by the API
             ObjectNode jsonObject = response.getBody();
 
+            log.debug("OMDb API response: {}", jsonObject);
+
             return jsonObject.path("imdbRating").asString();
         } catch (Exception e) {
-            System.out.println("Something went wrong while calling OMDb API: " + e.getMessage());
+            log.warn("Something went wrong while calling OMDb API: {}", e.getMessage());
             return null;
         }
     }

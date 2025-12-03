@@ -5,6 +5,7 @@ import com.vulcanium.watchlist.model.WatchlistItem;
 import com.vulcanium.watchlist.service.WatchlistService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 public class WatchlistController {
@@ -23,6 +25,8 @@ public class WatchlistController {
 
     @GetMapping("/watchlistItemForm")
     public String showWatchlistItemForm(@RequestParam(required = false) Integer id, Model model) {
+        log.info("HTTP GET request received at /{} URL", WATCHLIST_ITEM_FORM_VIEW_NAME);
+
         WatchlistItem watchlistItem = watchlistService.findWatchlistItemById(id);
 
         // If the watchlistItem does not exist, we display an empty web form.
@@ -38,6 +42,7 @@ public class WatchlistController {
 
     @PostMapping("/watchlistItemForm")
     public String submitWatchlistItemForm(@Valid WatchlistItem watchlistItem, BindingResult bindingResult) {
+        log.info("HTTP POST request received at /{} URL", WATCHLIST_ITEM_FORM_VIEW_NAME);
 
         if (bindingResult.hasErrors()) {
             return WATCHLIST_ITEM_FORM_VIEW_NAME;
@@ -55,6 +60,8 @@ public class WatchlistController {
 
     @GetMapping("/watchlist")
     public String getWatchlist(Model model) {
+        log.info("HTTP GET request received at /{} URL", WATCHLIST_VIEW_NAME);
+
         model.addAttribute("watchlistItems", watchlistService.getWatchlistItems());
         model.addAttribute("numberOfMovies", watchlistService.getWatchlistItemsSize());
 
