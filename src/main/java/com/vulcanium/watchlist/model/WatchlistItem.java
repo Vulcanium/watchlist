@@ -1,8 +1,8 @@
 package com.vulcanium.watchlist.model;
 
-import com.vulcanium.watchlist.model.annotations.GoodMovie;
-import com.vulcanium.watchlist.model.annotations.Priority;
-import com.vulcanium.watchlist.model.annotations.Rating;
+import com.vulcanium.watchlist.validation.GoodMovie;
+import com.vulcanium.watchlist.validation.Priority;
+import com.vulcanium.watchlist.validation.Rating;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;

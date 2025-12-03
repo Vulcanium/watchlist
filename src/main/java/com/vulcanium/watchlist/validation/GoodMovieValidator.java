@@ -1,4 +1,4 @@
-package com.vulcanium.watchlist.model.annotations;
+package com.vulcanium.watchlist.validation;
 
 import com.vulcanium.watchlist.model.WatchlistItem;
 import jakarta.validation.ConstraintValidator;
