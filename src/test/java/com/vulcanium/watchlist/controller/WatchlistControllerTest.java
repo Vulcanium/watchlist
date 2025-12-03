@@ -1,8 +1,10 @@
 package com.vulcanium.watchlist.controller;
 
+import com.vulcanium.watchlist.service.WatchlistService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -15,6 +17,9 @@ public class WatchlistControllerTest {
     @Autowired
     MockMvc mockMvc;
 
+    @MockitoBean
+    WatchlistService mockWatchlistService;
+
     @Test
     public void testShowWatchlistItemForm() throws Exception {
         mockMvc.perform(get("/watchlistItemForm"))
@@ -26,7 +31,10 @@ public class WatchlistControllerTest {
 
     @Test
     public void testSubmitWatchlistItemForm() throws Exception {
-        mockMvc.perform(post("/watchlistItemForm"))
+        mockMvc.perform(post("/watchlistItemForm")
+                        .param("title", "Top Gun")
+                        .param("rating", "7.0")
+                        .param("priority", "M"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/watchlist"));
     }
