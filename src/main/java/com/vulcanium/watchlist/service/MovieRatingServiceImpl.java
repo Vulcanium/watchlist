@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import tools.jackson.databind.node.ObjectNode;
 
-@Slf4j
 @ConditionalOnProperty(name = "app.environment", havingValue = "prod")
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class MovieRatingServiceImpl implements MovieRatingService {

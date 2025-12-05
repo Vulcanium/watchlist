@@ -32,7 +32,7 @@ public class WatchlistServiceTest {
 
         // Arrange
         WatchlistItem mockItem1 = new WatchlistItem(1, "Star Wars", "7.7", "H", "");
-        WatchlistItem mockItem2 = new WatchlistItem(2, "Star Treck", "5.0", "M", "");
+        WatchlistItem mockItem2 = new WatchlistItem(2, "Star Trek", "5.0", "M", "");
         List<WatchlistItem> mockItems = Arrays.asList(mockItem1, mockItem2);
 
         when(mockWatchlistRepository.getList()).thenReturn(mockItems);
@@ -43,7 +43,7 @@ public class WatchlistServiceTest {
         // Assert
         assertEquals(2, result.size());
         assertEquals("Star Wars", result.get(0).getTitle());
-        assertEquals("Star Treck", result.get(1).getTitle());
+        assertEquals("Star Trek", result.get(1).getTitle());
     }
 
     @Test
@@ -69,7 +69,7 @@ public class WatchlistServiceTest {
 
         // Arrange
         WatchlistItem mockItem1 = new WatchlistItem(1, "Star Wars", "7.7", "H", "");
-        WatchlistItem mockItem2 = new WatchlistItem(2, "Star Treck", "5.0", "M", "");
+        WatchlistItem mockItem2 = new WatchlistItem(2, "Star Trek", "5.0", "M", "");
         List<WatchlistItem> mockItems = Arrays.asList(mockItem1, mockItem2);
 
         when(mockWatchlistRepository.getList()).thenReturn(mockItems);
